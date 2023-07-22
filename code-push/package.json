@@ -1,0 +1,44 @@
+{
+  "name": "code-push",
+  "version": "1.0.1",
+  "description": "Management SDK for the CodePush service, Fork from 3.1.5",
+  "main": "script/index.js",
+  "types": "script/index.d.ts",
+  "scripts": {
+    "clean": "shx rm -rf bin",
+    "setup": "npm install --quiet --no-progress",
+    "prebuild": "npm run clean",
+    "build": "tsc && npm run content",
+    "prebuild:release": "npm run clean",
+    "build:release": "tsc -p ./tsconfig-release.json && npm run content",
+    "test": "npm run build && mocha --recursive bin/test",
+    "test:debugger": "mocha --recursive --inspect-brk=0.0.0.0 bin/test",
+    "content": "shx cp {plugin.xml,README.md,package.json,.npmignore} bin",
+    "deploy": "pushd ./bin && npm publish --registry=http://112.65.124.50:8881 && popd"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.dop.iskytrip.com/iskytrip-web/iskytrip-code-push.git"
+  },
+  "author": "Microsoft Corporation",
+  "license": "MIT",
+  "homepage": "https://microsoft.github.io/code-push",
+  "dependencies": {
+    "recursive-fs": "^2.1.0",
+    "slash": "^3.0.0",
+    "superagent": "^5.2.1",
+    "superagent-proxy": "^2.0.0",
+    "yazl": "^2.5.1"
+  },
+  "devDependencies": {
+    "@types/mocha": "^7.0.2",
+    "@types/node": "^13.11.0",
+    "@types/slash": "^3.0.0",
+    "@types/superagent": "^4.1.4",
+    "@types/yazl": "^2.4.2",
+    "mocha": "^7.1.1",
+    "shx": "^0.3.2",
+    "superagent-mock": "^3.7.0",
+    "typescript": "^3.8.3"
+  }
+}
